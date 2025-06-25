@@ -1,0 +1,103 @@
+[
+  {
+    "name": "users",
+    "columns": [
+      {"name": "user_id", "type": "INTEGER PRIMARY KEY"},
+      {"name": "username", "type": "TEXT UNIQUE"},
+      {"name": "role", "type": "TEXT"},
+      {"name": "email", "type": "TEXT"},
+      {"name": "created_at", "type": "TEXT"}
+    ]
+  },
+  {
+    "name": "equipment",
+    "columns": [
+      {"name": "equipment_id", "type": "INTEGER PRIMARY KEY"},
+      {"name": "name", "type": "TEXT"},
+      {"name": "model", "type": "TEXT"},
+      {"name": "serial_number", "type": "TEXT"},
+      {"name": "location", "type": "TEXT"},
+      {"name": "status", "type": "TEXT"},
+      {"name": "last_maintenance", "type": "TEXT"}
+    ]
+  },
+  {
+    "name": "storage",
+    "columns": [
+      {"name": "storage_id", "type": "INTEGER PRIMARY KEY"},
+      {"name": "name", "type": "TEXT"},
+      {"name": "location", "type": "TEXT"},
+      {"name": "temperature", "type": "TEXT"}
+    ]
+  },
+  {
+    "name": "inventory",
+    "columns": [
+      {"name": "inventory_id", "type": "INTEGER PRIMARY KEY"},
+      {"name": "name", "type": "TEXT"},
+      {"name": "product_type", "type": "TEXT"},
+      {"name": "lot_number", "type": "TEXT"},
+      {"name": "quantity", "type": "REAL"},
+      {"name": "unit", "type": "TEXT"},
+      {"name": "expiration_date", "type": "TEXT"},
+      {"name": "storage_id", "type": "INTEGER", "foreign": "storage(storage_id)"}
+    ]
+  },
+  {
+    "name": "samples",
+    "columns": [
+      {"name": "sample_id", "type": "INTEGER PRIMARY KEY"},
+      {"name": "name", "type": "TEXT"},
+      {"name": "sample_type", "type": "TEXT"},
+      {"name": "collected_by", "type": "TEXT"},
+      {"name": "collected_at", "type": "TEXT"},
+      {"name": "storage_id", "type": "INTEGER", "foreign": "storage(storage_id)"},
+      {"name": "description", "type": "TEXT"}
+    ]
+  },
+  {
+    "name": "dna",
+    "columns": [
+      {"name": "dna_id", "type": "INTEGER PRIMARY KEY"},
+      {"name": "sample_id", "type": "INTEGER", "foreign": "samples(sample_id)"},
+      {"name": "concentration", "type": "REAL"},
+      {"name": "unit", "type": "TEXT"},
+      {"name": "organism", "type": "TEXT"},
+      {"name": "extraction_method", "type": "TEXT"}
+    ]
+  },
+  {
+    "name": "tissues",
+    "columns": [
+      {"name": "tissue_id", "type": "INTEGER PRIMARY KEY"},
+      {"name": "sample_id", "type": "INTEGER", "foreign": "samples(sample_id)"},
+      {"name": "tissue_type", "type": "TEXT"},
+      {"name": "organism", "type": "TEXT"},
+      {"name": "preservation_method", "type": "TEXT"}
+    ]
+  },
+  {
+    "name": "antibodies",
+    "columns": [
+      {"name": "antibody_id", "type": "INTEGER PRIMARY KEY"},
+      {"name": "name", "type": "TEXT"},
+      {"name": "host_species", "type": "TEXT"},
+      {"name": "target", "type": "TEXT"},
+      {"name": "clonality", "type": "TEXT"},
+      {"name": "lot_number", "type": "TEXT"},
+      {"name": "storage_id", "type": "INTEGER", "foreign": "storage(storage_id)"}
+    ]
+  },
+  {
+    "name": "tests",
+    "columns": [
+      {"name": "test_id", "type": "INTEGER PRIMARY KEY"},
+      {"name": "sample_id", "type": "INTEGER", "foreign": "samples(sample_id)"},
+      {"name": "test_type", "type": "TEXT"},
+      {"name": "result", "type": "TEXT"},
+      {"name": "tested_at", "type": "TEXT"},
+      {"name": "performed_by", "type": "TEXT", "foreign": "users(username)"},
+      {"name": "equipment_id", "type": "INTEGER", "foreign": "equipment(equipment_id)"}
+    ]
+  }
+]

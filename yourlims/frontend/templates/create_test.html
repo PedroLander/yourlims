@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Create Test</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
+</head>
+<body>
+<div class="container mt-4">
+    <h2>Create Test</h2>
+    <form method="post">
+        <div class="mb-3">
+            <label>Sample ID</label>
+            <input type="number" name="sample_id" class="form-control" required>
+        </div>
+        <div class="mb-3">
+            <label>Test Type</label>
+            <input type="text" name="test_type" class="form-control" required>
+        </div>
+        <div class="mb-3">
+            <label>Result</label>
+            <input type="text" name="result" class="form-control" required>
+        </div>
+        <div class="mb-3">
+            <label>Tested At</label>
+            <input type="date" name="tested_at" class="form-control" required>
+        </div>
+        <button type="submit" class="btn btn-primary">Create</button>
+    </form>
+    <a href="/tests">Back to Tests</a>
+</div>
+</body>
+</html>
