@@ -1,0 +1,21 @@
+[
+  {
+    "name": "sops",
+    "columns": [
+      {"name": "sop_id", "type": "INTEGER PRIMARY KEY"},
+      {"name": "title", "type": "TEXT"},
+      {"name": "version", "type": "TEXT"},
+      {"name": "iso_standard", "type": "TEXT"},
+      {"name": "revision_date", "type": "TEXT"}
+    ]
+  },
+  {
+    "name": "audit_trails",
+    "columns": [
+      {"name": "audit_id", "type": "INTEGER PRIMARY KEY"},
+      {"name": "sop_id", "type": "INTEGER", "foreign": "sops(sop_id)"},
+      {"name": "event", "type": "TEXT"},
+      {"name": "timestamp", "type": "TEXT"}
+    ]
+  }
+]

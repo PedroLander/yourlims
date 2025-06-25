@@ -1,0 +1,22 @@
+[
+  {
+    "name": "instruments",
+    "columns": [
+      {"name": "instrument_id", "type": "INTEGER PRIMARY KEY"},
+      {"name": "name", "type": "TEXT"},
+      {"name": "model", "type": "TEXT"},
+      {"name": "serial_number", "type": "TEXT"},
+      {"name": "calibration_date", "type": "TEXT"},
+      {"name": "animl_id", "type": "TEXT"}
+    ]
+  },
+  {
+    "name": "calibrations",
+    "columns": [
+      {"name": "calibration_id", "type": "INTEGER PRIMARY KEY"},
+      {"name": "instrument_id", "type": "INTEGER", "foreign": "instruments(instrument_id)"},
+      {"name": "date", "type": "TEXT"},
+      {"name": "adf_id", "type": "TEXT"}
+    ]
+  }
+]

@@ -1,0 +1,32 @@
+[
+  {
+    "name": "studies",
+    "columns": [
+      {"name": "study_id", "type": "INTEGER PRIMARY KEY"},
+      {"name": "title", "type": "TEXT"},
+      {"name": "description", "type": "TEXT"},
+      {"name": "start_date", "type": "TEXT"},
+      {"name": "end_date", "type": "TEXT"},
+      {"name": "isa_investigation", "type": "TEXT"}
+    ]
+  },
+  {
+    "name": "assays",
+    "columns": [
+      {"name": "assay_id", "type": "INTEGER PRIMARY KEY"},
+      {"name": "study_id", "type": "INTEGER", "foreign": "studies(study_id)"},
+      {"name": "type", "type": "TEXT"},
+      {"name": "platform", "type": "TEXT"},
+      {"name": "obi_term", "type": "TEXT"}
+    ]
+  },
+  {
+    "name": "conditions",
+    "columns": [
+      {"name": "condition_id", "type": "INTEGER PRIMARY KEY"},
+      {"name": "assay_id", "type": "INTEGER", "foreign": "assays(assay_id)"},
+      {"name": "factor", "type": "TEXT"},
+      {"name": "value", "type": "TEXT"}
+    ]
+  }
+]

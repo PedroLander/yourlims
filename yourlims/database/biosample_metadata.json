@@ -1,0 +1,12 @@
+[
+  {
+    "name": "specimens",
+    "columns": [
+      {"name": "specimen_id", "type": "INTEGER PRIMARY KEY"},
+      {"name": "taxon", "type": "TEXT"},
+      {"name": "dwc_term", "type": "TEXT"},
+      {"name": "envo_term", "type": "TEXT"},
+      {"name": "field_location", "type": "TEXT"}
+    ]
+  }
+]

@@ -1,0 +1,21 @@
+[
+  {
+    "name": "sequencing_runs",
+    "columns": [
+      {"name": "run_id", "type": "INTEGER PRIMARY KEY"},
+      {"name": "platform", "type": "TEXT"},
+      {"name": "protocol", "type": "TEXT"},
+      {"name": "mixs_standard", "type": "TEXT"}
+    ]
+  },
+  {
+    "name": "omics_data",
+    "columns": [
+      {"name": "omics_id", "type": "INTEGER PRIMARY KEY"},
+      {"name": "run_id", "type": "INTEGER", "foreign": "sequencing_runs(run_id)"},
+      {"name": "type", "type": "TEXT"},
+      {"name": "mimarks", "type": "TEXT"},
+      {"name": "miame", "type": "TEXT"}
+    ]
+  }
+]

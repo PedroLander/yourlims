@@ -1,0 +1,11 @@
+[
+  {
+    "name": "containers",
+    "columns": [
+      {"name": "container_id", "type": "INTEGER PRIMARY KEY"},
+      {"name": "type", "type": "TEXT"},
+      {"name": "location", "type": "TEXT"},
+      {"name": "gs1_code", "type": "TEXT"}
+    ]
+  }
+]

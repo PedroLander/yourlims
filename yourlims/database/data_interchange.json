@@ -1,0 +1,12 @@
+[
+  {
+    "name": "interchange",
+    "columns": [
+      {"name": "interchange_id", "type": "INTEGER PRIMARY KEY"},
+      {"name": "jsonld", "type": "TEXT"},
+      {"name": "rdf", "type": "TEXT"},
+      {"name": "ro_crate", "type": "TEXT"},
+      {"name": "dublin_core", "type": "TEXT"}
+    ]
+  }
+]

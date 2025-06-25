@@ -14,10 +14,81 @@
             <input type="text" name="db_name" class="form-control" required value="lims_new.db">
         </div>
         <div class="mb-3">
-            <label>Schema</label>
-            <select name="schema" class="form-control">
-                <option value="international">International (MIBBI/GSC)</option>
-            </select>
+            <label>Schemas to Include</label>
+            <div class="card p-2 mb-2">
+                <div class="form-check">
+                    <input class="form-check-input" type="checkbox" name="schemas" value="international.json" id="schema-international" checked>
+                    <label class="form-check-label" for="schema-international">
+                        International Core (MIBBI/GSC)
+                    </label>
+                </div>
+                <div class="form-check">
+                    <input class="form-check-input" type="checkbox" name="schemas" value="experimental_metadata.json" id="schema-experimental" checked>
+                    <label class="form-check-label" for="schema-experimental">
+                        Experimental Metadata (ISA-Tab/OBI)
+                    </label>
+                </div>
+                <div class="form-check">
+                    <input class="form-check-input" type="checkbox" name="schemas" value="domain_metadata.json" id="schema-domain" checked>
+                    <label class="form-check-label" for="schema-domain">
+                        Domain Metadata (MIxS, MIMARKS, MIAME, MINSEQE)
+                    </label>
+                </div>
+                <div class="form-check">
+                    <input class="form-check-input" type="checkbox" name="schemas" value="biosample_metadata.json" id="schema-biosample" checked>
+                    <label class="form-check-label" for="schema-biosample">
+                        Biological/Biodiversity Samples (Darwin Core, ENVO)
+                    </label>
+                </div>
+                <div class="form-check">
+                    <input class="form-check-input" type="checkbox" name="schemas" value="chemicals_inventory.json" id="schema-chemicals" checked>
+                    <label class="form-check-label" for="schema-chemicals">
+                        Chemicals & Reference Materials (ChEBI, PubChem, UNII, SI units)
+                    </label>
+                </div>
+                <div class="form-check">
+                    <input class="form-check-input" type="checkbox" name="schemas" value="logistics_inventory.json" id="schema-logistics" checked>
+                    <label class="form-check-label" for="schema-logistics">
+                        Inventory & Logistics (RO-Crate, GS1, OBI extensions)
+                    </label>
+                </div>
+                <div class="form-check">
+                    <input class="form-check-input" type="checkbox" name="schemas" value="instrument_data.json" id="schema-instrument" checked>
+                    <label class="form-check-label" for="schema-instrument">
+                        Instrument Data & Workflows (AnIML, ADF)
+                    </label>
+                </div>
+                <div class="form-check">
+                    <input class="form-check-input" type="checkbox" name="schemas" value="staff_competency.json" id="schema-staff" checked>
+                    <label class="form-check-label" for="schema-staff">
+                        Staff & Competency (OBI, EDUO, HR schemas)
+                    </label>
+                </div>
+                <div class="form-check">
+                    <input class="form-check-input" type="checkbox" name="schemas" value="automation_integration.json" id="schema-automation" checked>
+                    <label class="form-check-label" for="schema-automation">
+                        Automation & Integration (SiLA 2, OPC-UA, SOPs)
+                    </label>
+                </div>
+                <div class="form-check">
+                    <input class="form-check-input" type="checkbox" name="schemas" value="quality_compliance.json" id="schema-quality" checked>
+                    <label class="form-check-label" for="schema-quality">
+                        Quality & Compliance (ISO 17025/15189, OBI, ISA extensions)
+                    </label>
+                </div>
+                <div class="form-check">
+                    <input class="form-check-input" type="checkbox" name="schemas" value="results_representation.json" id="schema-results" checked>
+                    <label class="form-check-label" for="schema-results">
+                        Results Representation (OBI, UO, STATO)
+                    </label>
+                </div>
+                <div class="form-check">
+                    <input class="form-check-input" type="checkbox" name="schemas" value="data_interchange.json" id="schema-interchange" checked>
+                    <label class="form-check-label" for="schema-interchange">
+                        Data Interchange / FAIR Layer (JSON-LD, RDF, RO-Crate, Dublin Core, PROV-O)
+                    </label>
+                </div>
+            </div>
         </div>
         <button type="submit" class="btn btn-success">Create</button>
     </form>

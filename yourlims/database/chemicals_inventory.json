@@ -1,0 +1,15 @@
+[
+  {
+    "name": "chemicals",
+    "columns": [
+      {"name": "chemical_id", "type": "INTEGER PRIMARY KEY"},
+      {"name": "name", "type": "TEXT"},
+      {"name": "chebi_id", "type": "TEXT"},
+      {"name": "pubchem_id", "type": "TEXT"},
+      {"name": "unii", "type": "TEXT"},
+      {"name": "unit", "type": "TEXT"},
+      {"name": "quantity", "type": "REAL"},
+      {"name": "expiration_date", "type": "TEXT"}
+    ]
+  }
+]

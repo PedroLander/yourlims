@@ -7,7 +7,7 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 </head>
 <body>
-<div class="container mt-4">
+<div class="container-fluid mt-4">
     <div class="d-flex justify-content-between align-items-center mb-3">
         <h1 class="mb-0">Laboratory Information Management System</h1>
         <span class="badge bg-primary fs-6">DB: {{ get_db_path() }}</span>
@@ -17,33 +17,52 @@
     {% else %}
         <a href="/login" class="btn btn-outline-primary btn-sm me-2">Login</a> <a href="/register" class="btn btn-outline-success btn-sm">Register</a>
     {% endif %}
-    <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-3 mt-2">
-        {% for table in get_tables() %}
-        <div class="col">
-            <div class="card h-100 shadow-sm">
-                <div class="card-body">
-                    <h5 class="card-title"><i class="fa fa-table"></i> {{ table|capitalize }}</h5>
-                    <a href="/{{ table }}" class="btn btn-primary btn-sm">View Table</a>
-                </div>
+    <div class="row">
+        <div class="col-md-3">
+            <div class="list-group mb-4">
+                <a href="/experiments/" class="list-group-item list-group-item-action"><i class="fa fa-flask me-2"></i>Experiment Manager</a>
+                <a href="/samples/" class="list-group-item list-group-item-action"><i class="fa fa-dna me-2"></i>Sample Tracker</a>
+                <a href="/inventory/" class="list-group-item list-group-item-action"><i class="fa fa-boxes-stacked me-2"></i>Inventory Manager</a>
+                <a href="/instruments/" class="list-group-item list-group-item-action"><i class="fa fa-microscope me-2"></i>Instrument Manager</a>
+                <a href="/sop/" class="list-group-item list-group-item-action"><i class="fa fa-file-alt me-2"></i>SOP & Document Manager</a>
+                <a href="/personnel/" class="list-group-item list-group-item-action"><i class="fa fa-user-tie me-2"></i>Personnel Manager</a>
+                <a href="/qa/" class="list-group-item list-group-item-action"><i class="fa fa-check-circle me-2"></i>QA/QC Module</a>
+                <a href="/results/" class="list-group-item list-group-item-action"><i class="fa fa-chart-bar me-2"></i>Results & Reporting Engine</a>
+                <a href="/ontology/" class="list-group-item list-group-item-action"><i class="fa fa-brain me-2"></i>Ontology/Metadata Hub</a>
+                <a href="/integration/" class="list-group-item list-group-item-action"><i class="fa fa-sync-alt me-2"></i>Integration & Automation Layer</a>
+                <a href="/accounting/" class="list-group-item list-group-item-action"><i class="fa fa-briefcase me-2"></i>Accounting Interface</a>
             </div>
         </div>
-        {% endfor %}
-        <div class="col">
-            <div class="card h-100 border-info shadow-sm">
-                <div class="card-body">
-                    <h5 class="card-title"><i class="fa fa-database"></i> Database</h5>
-                    <a href="/db/select" class="btn btn-outline-info btn-sm">Select Database</a>
-                    <a href="/db/create" class="btn btn-outline-success btn-sm ms-2">Create Database</a>
+        <div class="col-md-9">
+            <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-3 mt-2">
+                {% for table in get_tables() %}
+                <div class="col">
+                    <div class="card h-100 shadow-sm">
+                        <div class="card-body">
+                            <h5 class="card-title"><i class="fa fa-table"></i> {{ table|capitalize }}</h5>
+                            <a href="/tables/{{ table }}" class="btn btn-primary btn-sm">View Table</a>
+                        </div>
+                    </div>
                 </div>
-            </div>
-        </div>
-        <div class="col">
-            <div class="card h-100 border-warning shadow-sm">
-                <div class="card-body">
-                    <h5 class="card-title"><i class="fa fa-flask"></i> Example Data</h5>
-                    <form method="post" action="/db/load_example">
-                        <button type="submit" class="btn btn-warning btn-sm">Load Example Molecular Biology Lab Database</button>
-                    </form>
+                {% endfor %}
+                <div class="col">
+                    <div class="card h-100 border-info shadow-sm">
+                        <div class="card-body">
+                            <h5 class="card-title"><i class="fa fa-database"></i> Database</h5>
+                            <a href="/db/select" class="btn btn-outline-info btn-sm">Select Database</a>
+                            <a href="/db/create" class="btn btn-outline-success btn-sm ms-2">Create Database</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="col">
+                    <div class="card h-100 border-warning shadow-sm">
+                        <div class="card-body">
+                            <h5 class="card-title"><i class="fa fa-flask"></i> Example Data</h5>
+                            <form method="post" action="/db/load_example">
+                                <button type="submit" class="btn btn-warning btn-sm">Load Example Molecular Biology Lab Database</button>
+                            </form>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>

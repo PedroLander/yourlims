@@ -1,0 +1,11 @@
+[
+  {
+    "name": "automation",
+    "columns": [
+      {"name": "automation_id", "type": "INTEGER PRIMARY KEY"},
+      {"name": "type", "type": "TEXT"},
+      {"name": "driver", "type": "TEXT"},
+      {"name": "sop_id", "type": "TEXT"}
+    ]
+  }
+]

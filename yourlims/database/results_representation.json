@@ -1,0 +1,13 @@
+[
+  {
+    "name": "results",
+    "columns": [
+      {"name": "result_id", "type": "INTEGER PRIMARY KEY"},
+      {"name": "type", "type": "TEXT"},
+      {"name": "value", "type": "TEXT"},
+      {"name": "unit", "type": "TEXT"},
+      {"name": "statistic", "type": "TEXT"},
+      {"name": "stato_term", "type": "TEXT"}
+    ]
+  }
+]
