@@ -5,12 +5,31 @@
     <title>LIMS Frontend</title>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="/static/lims.css">
 </head>
 <body>
+<script>
+// Dark mode toggle
+function toggleDarkMode() {
+    document.body.classList.toggle('dark-mode');
+    localStorage.setItem('lims-dark', document.body.classList.contains('dark-mode'));
+}
+window.addEventListener('DOMContentLoaded', function() {
+    if (localStorage.getItem('lims-dark') === 'true') {
+        document.body.classList.add('dark-mode');
+    }
+});
+</script>
 <div class="container-fluid mt-4">
     <div class="d-flex justify-content-between align-items-center mb-3">
-        <h1 class="mb-0">Laboratory Information Management System</h1>
-        <span class="badge bg-primary fs-6">DB: {{ get_db_path() }}</span>
+        <div class="d-flex align-items-center gap-3">
+            <h1 class="mb-0">Laboratory Information Management System</h1>
+            <a href="/tables" class="btn btn-outline-primary btn-sm" title="Table Menu"><i class="fa fa-table"></i> Tables</a>
+        </div>
+        <div class="d-flex align-items-center gap-2">
+            <span class="badge bg-primary fs-6">DB: {{ get_db_path() }}</span>
+            <button class="btn btn-outline-secondary btn-sm" data-bs-toggle="modal" data-bs-target="#settingsModal" title="Settings"><i class="fa fa-cog"></i></button>
+        </div>
     </div>
     {% if session.username %}
         <div class="alert alert-info py-2">Logged in as <b>{{ session.username }}</b> ({{ session.role }}) <a href="/logout" class="ms-2">Logout</a></div>
@@ -35,34 +54,44 @@
         </div>
         <div class="col-md-9">
             {% block content %}
-            <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-3 mt-2">
-                {% for table in get_tables() %}
-                <div class="col">
-                    <div class="card h-100 shadow-sm">
-                        <div class="card-body">
-                            <h5 class="card-title"><i class="fa fa-table"></i> {{ table|capitalize }}</h5>
-                            <a href="/tables/{{ table }}" class="btn btn-primary btn-sm">View Table</a>
+            <div class="overview-card card p-4 mb-4 bg-white shadow-sm">
+                <h2 class="mb-3"><i class="fa fa-flask-vial me-2"></i>Lab Overview</h2>
+                <div class="row g-4">
+                    <div class="col-md-6">
+                        <div class="stat-box p-3 rounded bg-light mb-3">
+                            <h5 class="text-primary"><i class="fa fa-users me-2"></i>Personnel</h5>
+                            <div class="fs-4">{{ stats.personnel_count or '—' }}</div>
+                            <div class="text-muted">Active staff members</div>
+                        </div>
+                        <div class="stat-box p-3 rounded bg-light mb-3">
+                            <h5 class="text-success"><i class="fa fa-microscope me-2"></i>Instruments</h5>
+                            <div class="fs-4">{{ stats.instrument_count or '—' }}</div>
+                            <div class="text-muted">Total instruments</div>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="stat-box p-3 rounded bg-light mb-3">
+                            <h5 class="text-warning"><i class="fa fa-vials me-2"></i>Samples</h5>
+                            <div class="fs-4">{{ stats.sample_count or '—' }}</div>
+                            <div class="text-muted">Samples tracked</div>
+                        </div>
+                        <div class="stat-box p-3 rounded bg-light mb-3">
+                            <h5 class="text-info"><i class="fa fa-boxes-stacked me-2"></i>Inventory Items</h5>
+                            <div class="fs-4">{{ stats.inventory_count or '—' }}</div>
+                            <div class="text-muted">Inventory records</div>
                         </div>
                     </div>
                 </div>
-                {% endfor %}
-                <div class="col">
-                    <div class="card h-100 border-info shadow-sm">
-                        <div class="card-body">
-                            <h5 class="card-title"><i class="fa fa-database"></i> Database</h5>
-                            <a href="/db/select" class="btn btn-outline-info btn-sm">Select Database</a>
-                            <a href="/db/create" class="btn btn-outline-success btn-sm ms-2">Create Database</a>
-                        </div>
-                    </div>
-                </div>
-                <div class="col">
-                    <div class="card h-100 border-warning shadow-sm">
-                        <div class="card-body">
-                            <h5 class="card-title"><i class="fa fa-flask"></i> Example Data</h5>
-                            <form method="post" action="/db/load_example">
-                                <button type="submit" class="btn btn-warning btn-sm">Load Example Molecular Biology Lab Database</button>
-                            </form>
-                        </div>
+                <div class="row mt-4">
+                    <div class="col-12">
+                        <h5 class="mb-2"><i class="fa fa-chart-bar me-2"></i>Recent Activity</h5>
+                        <ul class="list-group">
+                            {% for event in stats.recent_activity %}
+                            <li class="list-group-item">{{ event }}</li>
+                            {% else %}
+                            <li class="list-group-item text-muted">No recent activity.</li>
+                            {% endfor %}
+                        </ul>
                     </div>
                 </div>
             </div>
@@ -70,5 +99,72 @@
         </div>
     </div>
 </div>
+<!-- Settings Modal -->
+<div class="modal fade" id="settingsModal" tabindex="-1" aria-labelledby="settingsModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content"{% if 'dark-mode' in request.cookies.get('lims-dark', '') or (request.cookies.get('lims-dark') == 'true') %} style="background:#232a36;color:#e3eafc;"{% endif %}>
+      <div class="modal-header"{% if 'dark-mode' in request.cookies.get('lims-dark', '') or (request.cookies.get('lims-dark') == 'true') %} style="background:#26304a;color:#90caf9;"{% endif %}>
+        <h5 class="modal-title" id="settingsModalLabel">Settings</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        {% if session.role == 'admin' %}
+        <ul class="list-group mb-3">
+          <li class="list-group-item"><a href="/db/select"><i class="fa fa-database me-2"></i>Database Selection</a></li>
+          <li class="list-group-item"><a href="/db/create"><i class="fa fa-plus-circle me-2"></i>Create New Database</a></li>
+          <li class="list-group-item"><a href="/db/backup"><i class="fa fa-save me-2"></i>Backup Configuration</a></li>
+          <li class="list-group-item"><a href="/users/"><i class="fa fa-users-cog me-2"></i>User Management</a></li>
+          <li class="list-group-item"><a href="/schemas/"><i class="fa fa-sitemap me-2"></i>Schema Management</a></li>
+          <li class="list-group-item"><a href="/integration/config"><i class="fa fa-cogs me-2"></i>Automation/Equipment Config</a></li>
+        </ul>
+        {% endif %}
+        <ul class="list-group">
+          <li class="list-group-item"><a href="/profile"><i class="fa fa-user me-2"></i>Profile</a></li>
+          <li class="list-group-item"><a href="#" onclick="showNotificationSettings();return false;"><i class="fa fa-bell me-2"></i>Notification Settings</a></li>
+          <li class="list-group-item"><a href="#" onclick="toggleDarkMode();return false;"><i class="fa fa-moon me-2"></i>Dark Mode</a></li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- Notification Settings Modal -->
+<div class="modal fade" id="notifModal" tabindex="-1" aria-labelledby="notifModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="notifModalLabel">Notification Settings</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <form id="notifForm">
+          <div class="form-check mb-2">
+            <input class="form-check-input" type="checkbox" id="notifEmail" checked>
+            <label class="form-check-label" for="notifEmail">Email notifications</label>
+          </div>
+          <div class="form-check mb-2">
+            <input class="form-check-input" type="checkbox" id="notifSystem">
+            <label class="form-check-label" for="notifSystem">System pop-up notifications</label>
+          </div>
+          <div class="form-check mb-2">
+            <input class="form-check-input" type="checkbox" id="notifSMS">
+            <label class="form-check-label" for="notifSMS">SMS notifications</label>
+          </div>
+          <button type="button" class="btn btn-success mt-2" data-bs-dismiss="modal" onclick="saveNotifSettings()">Save</button>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+<script>
+function showNotificationSettings() {
+    var notifModal = new bootstrap.Modal(document.getElementById('notifModal'));
+    notifModal.show();
+}
+function saveNotifSettings() {
+    // Save logic can be implemented here (localStorage or backend)
+    alert('Notification settings saved!');
+}
+</script>
 </body>
 </html>

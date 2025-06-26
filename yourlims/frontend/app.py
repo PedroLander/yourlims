@@ -18,6 +18,7 @@ from yourlims.frontend.modules.results_reporting import results_reporting
 from yourlims.frontend.modules.ontology_hub import ontology_hub
 from yourlims.frontend.modules.integration_automation import integration_automation
 from yourlims.frontend.modules.accounting import accounting
+from yourlims.frontend.modules.profile import profile
 
 API_URL = 'http://localhost:5000'
 API_KEY = 'your-secret-api-key'
@@ -37,6 +38,7 @@ app.register_blueprint(results_reporting)
 app.register_blueprint(ontology_hub)
 app.register_blueprint(integration_automation)
 app.register_blueprint(accounting)
+app.register_blueprint(profile)
 
 DB_DIR = os.path.abspath(os.path.join(os.path.dirname(__file__), '../databases'))
 os.makedirs(DB_DIR, exist_ok=True)
@@ -70,7 +72,33 @@ def fetch_schema():
 
 @app.route('/')
 def index():
-    return render_template('index.html')
+    # Gather stats for overview
+    db_path = get_db_path()
+    stats = {
+        'personnel_count': 0,
+        'instrument_count': 0,
+        'sample_count': 0,
+        'inventory_count': 0,
+        'recent_activity': []
+    }
+    if db_path:
+        import sqlite3
+        conn = sqlite3.connect(db_path)
+        c = conn.cursor()
+        try:
+            c.execute('SELECT COUNT(*) FROM staff'); stats['personnel_count'] = c.fetchone()[0]
+            c.execute('SELECT COUNT(*) FROM instruments'); stats['instrument_count'] = c.fetchone()[0]
+            c.execute('SELECT COUNT(*) FROM samples'); stats['sample_count'] = c.fetchone()[0]
+            c.execute('SELECT COUNT(*) FROM inventory'); stats['inventory_count'] = c.fetchone()[0]
+            # Recent activity: last 5 tests or samples
+            c.execute('SELECT name, collected_at FROM samples ORDER BY collected_at DESC LIMIT 3')
+            stats['recent_activity'] += [f"Sample '{row[0]}' collected on {row[1]}" for row in c.fetchall()]
+            c.execute('SELECT test_type, tested_at FROM tests ORDER BY tested_at DESC LIMIT 2')
+            stats['recent_activity'] += [f"Test '{row[0]}' performed on {row[1]}" for row in c.fetchall()]
+        except Exception as e:
+            pass
+        conn.close()
+    return render_template('index.html', stats=stats)
 
 @app.route('/register', methods=['GET', 'POST'])
 def register():

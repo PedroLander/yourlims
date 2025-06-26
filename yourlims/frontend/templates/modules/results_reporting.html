@@ -13,4 +13,17 @@
         </tbody>
     </table>
 </div>
+<p>Upload results in CSV format for batch import.</p>
+<form method="post" enctype="multipart/form-data" class="mb-4 card p-3 bg-white shadow-sm">
+    <div class="mb-3">
+        <label for="csvfile" class="form-label">Upload CSV File</label>
+        <input type="file" class="form-control" id="csvfile" name="csvfile" accept=".csv">
+    </div>
+    {% if session.role in ['admin', 'scientist'] %}
+    <button type="submit" class="btn btn-success">Upload</button>
+    {% endif %}
+    {% if upload_message %}
+    <div class="alert alert-info mt-3">{{ upload_message }}</div>
+    {% endif %}
+</form>
 {% endblock %}

@@ -102,11 +102,15 @@ def populate_example_data(conn):
             (4, 'ELISA', 'Negative', '2025-06-07', 'dave', 1),
             (5, 'Western Blot', 'Positive', '2025-06-08', 'eve', 2)
         ])
-        # Staff
-        c.executemany("INSERT INTO staff (name, role, training, edu_term) VALUES (?, ?, ?, ?)", [
-            ('Frank', 'PI', 'Lab Safety', 'EDU:0001'),
-            ('Grace', 'Lab Tech', 'PCR', 'EDU:0002'),
-            ('Heidi', 'Postdoc', 'Sequencing', 'EDU:0003')
+        # Staff (add manager and more hierarchy)
+        c.executemany("INSERT INTO staff (name, role, manager, training, edu_term) VALUES (?, ?, ?, ?, ?)", [
+            ('Grace', 'Lab Manager', None, 'PCR, Management', 'EDU:0002'),
+            ('Frank', 'PI', 'Grace', 'Lab Safety', 'EDU:0001'),
+            ('Heidi', 'Postdoc', 'Grace', 'Sequencing', 'EDU:0003'),
+            ('Alice', 'IP Researcher', 'Frank', 'Genomics', 'EDU:0004'),
+            ('Bob', 'IP Researcher', 'Frank', 'Proteomics', 'EDU:0005'),
+            ('Carol', 'Technician', 'Heidi', 'Histology', 'EDU:0006'),
+            ('Dave', 'Technician', 'Heidi', 'ELISA', 'EDU:0007')
         ])
         # Chemicals
         c.executemany("INSERT INTO chemicals (name, chebi_id, pubchem_id, unii, unit, quantity, expiration_date) VALUES (?, ?, ?, ?, ?, ?, ?)", [
@@ -138,11 +142,14 @@ def populate_example_data(conn):
             ('Mus musculus', 'dwc:0002', 'ENVO:0002', 'Field B'),
             ('Arabidopsis thaliana', 'dwc:0003', 'ENVO:0003', 'Field C')
         ])
-        # Automation
-        c.executemany("INSERT INTO automation (type, driver, sop_id) VALUES (?, ?, ?)", [
-            ('robot', 'SiLA2', '1'),
-            ('liquid handler', 'OPC-UA', '2'),
-            ('incubator', 'Custom', '3')
+        # Automation (add more, with equipment links)
+        c.executemany("INSERT INTO automation (type, driver, sop_id, equipment) VALUES (?, ?, ?, ?)", [
+            ('robot', 'SiLA2', '1', 'Auto Sampler'),
+            ('liquid handler', 'OPC-UA', '2', 'PCR Machine'),
+            ('incubator', 'Custom', '3', 'Incubator'),
+            ('sampler', 'SiLA2', '2', 'Auto Sampler'),
+            ('pcr', 'OPC-UA', '1', 'PCR Machine'),
+            ('balance', 'Custom', '3', 'Balance')
         ])
         # Instruments (add more, with realistic calibration dates)
         c.executemany("INSERT INTO instruments (name, model, serial_number, calibration_date, animl_id) VALUES (?, ?, ?, ?, ?)", [

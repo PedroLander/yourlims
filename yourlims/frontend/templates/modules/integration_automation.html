@@ -13,4 +13,51 @@
         </tbody>
     </table>
 </div>
+<div class="mb-4">
+    <h4>Equipment Network Diagram</h4>
+    <div class="bg-white p-3 rounded shadow-sm">
+        <canvas id="equipDiagram" width="600" height="320"></canvas>
+    </div>
+    <script>
+    // Simple static diagram for demo; can be made dynamic
+    window.addEventListener('DOMContentLoaded', function() {
+        var c = document.getElementById('equipDiagram');
+        var ctx = c.getContext('2d');
+        // Draw PCs
+        ctx.fillStyle = '#1976d2';
+        ctx.fillRect(60, 60, 80, 40);
+        ctx.fillRect(60, 180, 80, 40);
+        ctx.fillStyle = '#fff';
+        ctx.font = 'bold 14px Segoe UI';
+        ctx.fillText('PC-1', 85, 85);
+        ctx.fillText('PC-2', 85, 205);
+        // Draw PCR and Sampler
+        ctx.fillStyle = '#43a047';
+        ctx.fillRect(320, 60, 120, 40);
+        ctx.fillRect(320, 180, 120, 40);
+        ctx.fillStyle = '#fff';
+        ctx.fillText('PCR Machine', 335, 85);
+        ctx.fillText('Auto Sampler', 335, 205);
+        // Draw lines
+        ctx.strokeStyle = '#888';
+        ctx.lineWidth = 3;
+        ctx.beginPath();
+        ctx.moveTo(140, 80); ctx.lineTo(320, 80); // PC-1 to PCR
+        ctx.moveTo(140, 200); ctx.lineTo(320, 200); // PC-2 to Sampler
+        ctx.stroke();
+        // Draw cloud (network)
+        ctx.beginPath();
+        ctx.arc(220, 130, 30, Math.PI*0.7, Math.PI*2.3, false);
+        ctx.arc(250, 130, 30, Math.PI*1.2, Math.PI*2.8, false);
+        ctx.closePath();
+        ctx.fillStyle = '#e3eafc';
+        ctx.fill();
+        ctx.strokeStyle = '#1976d2';
+        ctx.stroke();
+        ctx.fillStyle = '#1976d2';
+        ctx.font = 'bold 13px Segoe UI';
+        ctx.fillText('LAN', 230, 140);
+    });
+    </script>
+</div>
 {% endblock %}

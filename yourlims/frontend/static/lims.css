@@ -1,0 +1,100 @@
+/* LIMS Custom Styles */
+body {
+    background: #f8fafc;
+    font-family: 'Segoe UI', 'Roboto', Arial, sans-serif;
+    color: #222;
+    transition: background 0.3s, color 0.3s;
+    margin: 0;
+}
+.container-fluid {
+    max-width: 1400px;
+    margin: 32px auto 0 auto;
+    padding: 0 32px;
+}
+.list-group.mb-4 {
+    margin-bottom: 2.5rem !important;
+}
+.col-md-3 {
+    padding-right: 2rem;
+}
+.col-md-9 {
+    padding-left: 2rem;
+}
+.btn-outline-primary, .btn-outline-success {
+    margin-bottom: 0.5rem;
+}
+.alert-info {
+    margin-bottom: 2rem;
+}
+/* Elegant clear mode */
+.card, .bg-white, .table {
+    border-radius: 0.75rem;
+    box-shadow: 0 4px 24px rgba(60,72,88,0.10);
+    border: none;
+}
+.table th {
+    background: linear-gradient(90deg, #e3eafc 60%, #f8fafc 100%);
+    color: #1a237e;
+    font-weight: 600;
+    border-bottom: 2px solid #b0bec5;
+}
+/* Elegant dark mode */
+body.dark-mode {
+    background: #181c24;
+    color: #e3eafc;
+}
+body.dark-mode .bg-white,
+body.dark-mode .card,
+body.dark-mode .table {
+    background: #232a36 !important;
+    color: #e3eafc;
+    box-shadow: 0 4px 24px rgba(20,30,40,0.25);
+    border: none;
+}
+body.dark-mode .table th {
+    background: linear-gradient(90deg, #26304a 60%, #232a36 100%);
+    color: #90caf9;
+    border-bottom: 2px solid #374151;
+}
+body.dark-mode .list-group-item-action {
+    background: #232a36;
+    color: #e3eafc;
+    border-radius: 0.5rem;
+}
+body.dark-mode .list-group-item-action:hover, body.dark-mode .list-group-item-action.active {
+    background: #1976d2;
+    color: #fff;
+}
+body.dark-mode .btn,
+body.dark-mode .btn-success,
+body.dark-mode .btn-outline-success,
+body.dark-mode .btn-outline-primary {
+    color: #fff;
+}
+body.dark-mode .btn-outline-primary {
+    border-color: #90caf9;
+    color: #90caf9;
+}
+body.dark-mode .btn-outline-primary:hover {
+    background: #1976d2;
+    color: #fff;
+}
+body.dark-mode .alert-info {
+    background: #26304a;
+    color: #90caf9;
+    border: none;
+}
+body.dark-mode .badge.bg-primary {
+    background: linear-gradient(90deg, #26304a 60%, #1976d2 100%);
+}
+/* Original accent: subtle border and shadow for sidebar */
+.list-group.mb-4 {
+    border-left: 4px solid #1976d2;
+    box-shadow: 0 2px 12px rgba(25,118,210,0.04);
+    border-radius: 0.5rem;
+    background: #f4f8fd;
+}
+body.dark-mode .list-group.mb-4 {
+    border-left: 4px solid #90caf9;
+    background: #1a2233;
+}

@@ -1,0 +1,29 @@
+{% extends 'index.html' %}
+{% block content %}
+<h2>Equipment Connection Configuration</h2>
+<form method="post" class="card p-4 shadow-sm bg-white">
+    <div class="mb-3">
+        <label for="ip" class="form-label">Equipment IP Address</label>
+        <input type="text" class="form-control" id="ip" name="ip" value="{{ config.ip or '' }}" required>
+    </div>
+    <div class="mb-3">
+        <label for="port" class="form-label">Port</label>
+        <input type="number" class="form-control" id="port" name="port" value="{{ config.port or '' }}" required>
+    </div>
+    <div class="mb-3">
+        <label for="protocol" class="form-label">Protocol</label>
+        <select class="form-select" id="protocol" name="protocol">
+            <option value="SiLA2" {% if config.protocol=='SiLA2' %}selected{% endif %}>SiLA2</option>
+            <option value="OPC-UA" {% if config.protocol=='OPC-UA' %}selected{% endif %}>OPC-UA</option>
+            <option value="Custom" {% if config.protocol=='Custom' %}selected{% endif %}>Custom</option>
+        </select>
+    </div>
+    <div class="mb-3">
+        <label for="description" class="form-label">Description</label>
+        <input type="text" class="form-control" id="description" name="description" value="{{ config.description or '' }}">
+    </div>
+    {% if session.role == 'admin' %}
+    <button type="submit" class="btn btn-success">Save Configuration</button>
+    {% endif %}
+</form>
+{% endblock %}

@@ -5,6 +5,7 @@
       {"name": "staff_id", "type": "INTEGER PRIMARY KEY"},
       {"name": "name", "type": "TEXT"},
       {"name": "role", "type": "TEXT"},
+      {"name": "manager", "type": "TEXT"},
       {"name": "training", "type": "TEXT"},
       {"name": "edu_term", "type": "TEXT"}
     ]
