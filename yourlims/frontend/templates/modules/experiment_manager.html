@@ -1,5 +1,27 @@
 {% extends 'index.html' %}
 {% block content %}
 <h2>Experiment Manager</h2>
-<p>Welcome to the Experiment Manager module.</p>
+<p>Manage studies and assays. You can view, add, or edit experimental metadata.</p>
+<div class="mb-4">
+    <h4>Studies <a href="/tables/studies/create" class="btn btn-success btn-sm ms-2">Create New Study</a></h4>
+    <table class="table table-bordered table-sm">
+        <thead><tr><th>ID</th><th>Title</th><th>Description</th><th>Start</th><th>End</th></tr></thead>
+        <tbody>
+        {% for s in studies %}
+        <tr><td>{{ s.study_id }}</td><td>{{ s.title }}</td><td>{{ s.description }}</td><td>{{ s.start_date }}</td><td>{{ s.end_date }}</td></tr>
+        {% endfor %}
+        </tbody>
+    </table>
+</div>
+<div class="mb-4">
+    <h4>Assays <a href="/tables/assays/create" class="btn btn-success btn-sm ms-2">Create New Assay</a></h4>
+    <table class="table table-bordered table-sm">
+        <thead><tr><th>ID</th><th>Study</th><th>Type</th><th>Platform</th></tr></thead>
+        <tbody>
+        {% for a in assays %}
+        <tr><td>{{ a.assay_id }}</td><td>{{ a.study_id }}</td><td>{{ a.type }}</td><td>{{ a.platform }}</td></tr>
+        {% endfor %}
+        </tbody>
+    </table>
+</div>
 {% endblock %}

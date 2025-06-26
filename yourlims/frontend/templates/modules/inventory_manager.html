@@ -1,5 +1,38 @@
 {% extends 'index.html' %}
 {% block content %}
 <h2>Inventory Manager</h2>
-<p>Welcome to the Inventory Manager module.</p>
+<p>Manage inventory, chemicals, and containers.</p>
+<div class="mb-4">
+    <h4>Inventory <a href="/tables/inventory/create" class="btn btn-success btn-sm ms-2">Add Inventory</a></h4>
+    <table class="table table-bordered table-sm">
+        <thead><tr><th>ID</th><th>Name</th><th>Type</th><th>Lot</th><th>Qty</th><th>Unit</th><th>Expires</th></tr></thead>
+        <tbody>
+        {% for i in inventory %}
+        <tr><td>{{ i.inventory_id }}</td><td>{{ i.name }}</td><td>{{ i.product_type }}</td><td>{{ i.lot_number }}</td><td>{{ i.quantity }}</td><td>{{ i.unit }}</td><td>{{ i.expiration_date }}</td></tr>
+        {% endfor %}
+        </tbody>
+    </table>
+</div>
+<div class="mb-4">
+    <h4>Chemicals <a href="/tables/chemicals/create" class="btn btn-success btn-sm ms-2">Add Chemical</a></h4>
+    <table class="table table-bordered table-sm">
+        <thead><tr><th>ID</th><th>Name</th><th>ChEBI</th><th>PubChem</th><th>UNII</th><th>Qty</th><th>Unit</th></tr></thead>
+        <tbody>
+        {% for c in chemicals %}
+        <tr><td>{{ c.chemical_id }}</td><td>{{ c.name }}</td><td>{{ c.chebi_id }}</td><td>{{ c.pubchem_id }}</td><td>{{ c.unii }}</td><td>{{ c.quantity }}</td><td>{{ c.unit }}</td></tr>
+        {% endfor %}
+        </tbody>
+    </table>
+</div>
+<div class="mb-4">
+    <h4>Containers <a href="/tables/containers/create" class="btn btn-success btn-sm ms-2">Add Container</a></h4>
+    <table class="table table-bordered table-sm">
+        <thead><tr><th>ID</th><th>Type</th><th>Location</th><th>GS1 Code</th></tr></thead>
+        <tbody>
+        {% for c in containers %}
+        <tr><td>{{ c.container_id }}</td><td>{{ c.type }}</td><td>{{ c.location }}</td><td>{{ c.gs1_code }}</td></tr>
+        {% endfor %}
+        </tbody>
+    </table>
+</div>
 {% endblock %}

@@ -1,5 +1,56 @@
 {% extends 'index.html' %}
 {% block content %}
 <h2>Instrument Manager</h2>
-<p>Welcome to the Instrument Manager module.</p>
+<p>Manage instruments and their calibrations.</p>
+<div class="mb-4">
+    <h4>Calibration Statistics</h4>
+    <ul>
+        <li>Total Instruments: {{ instruments|length }}</li>
+        <li>Total Calibrations: {{ calibrations|length }}</li>
+        <li>Most Recent Calibration: {% if calibrations %}{{ (calibrations|sort(attribute='date')|last).date }}{% else %}N/A{% endif %}</li>
+    </ul>
+    <canvas id="calibrationChart" width="400" height="120"></canvas>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script>
+        var calLabels = {{ year_labels|tojson|safe }};
+        var calData = {{ year_data|tojson|safe }};
+        var ctx = document.getElementById('calibrationChart').getContext('2d');
+        var chart = new Chart(ctx, {
+            type: 'bar',
+            data: {
+                labels: calLabels,
+                datasets: [{
+                    label: 'Calibrations per Year',
+                    data: calData,
+                    backgroundColor: 'rgba(54, 162, 235, 0.5)',
+                    borderColor: 'rgba(54, 162, 235, 1)',
+                    borderWidth: 1
+                }]
+            },
+            options: {scales: {y: {beginAtZero: true}}}
+        });
+    </script>
+</div>
+<div class="mb-4">
+    <h4>Instruments <a href="/tables/instruments/create" class="btn btn-success btn-sm ms-2">Add Instrument</a></h4>
+    <table class="table table-bordered table-sm">
+        <thead><tr><th>ID</th><th>Name</th><th>Model</th><th>Serial</th><th>Calibration Date</th></tr></thead>
+        <tbody>
+        {% for i in instruments %}
+        <tr><td>{{ i.instrument_id }}</td><td>{{ i.name }}</td><td>{{ i.model }}</td><td>{{ i.serial_number }}</td><td>{{ i.calibration_date }}</td></tr>
+        {% endfor %}
+        </tbody>
+    </table>
+</div>
+<div class="mb-4">
+    <h4>Calibrations <a href="/tables/calibrations/create" class="btn btn-success btn-sm ms-2">Add Calibration</a></h4>
+    <table class="table table-bordered table-sm">
+        <thead><tr><th>ID</th><th>Instrument</th><th>Date</th><th>ADF ID</th><th>Certificate</th></tr></thead>
+        <tbody>
+        {% for c in calibrations %}
+        <tr><td>{{ c.calibration_id }}</td><td>{{ c.instrument_id }}</td><td>{{ c.date }}</td><td>{{ c.adf_id }}</td><td>{% if c.certificate %}<a href="{{ c.certificate }}" target="_blank">File</a>{% else %}-{% endif %}</td></tr>
+        {% endfor %}
+        </tbody>
+    </table>
+</div>
 {% endblock %}

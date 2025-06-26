@@ -1,5 +1,16 @@
 {% extends 'index.html' %}
 {% block content %}
 <h2>Results & Reporting Engine</h2>
-<p>Welcome to the Results & Reporting Engine module.</p>
+<p>View and analyze results data.</p>
+<div class="mb-4">
+    <h4>Results <a href="/tables/results/create" class="btn btn-success btn-sm ms-2">Add Result</a></h4>
+    <table class="table table-bordered table-sm">
+        <thead><tr><th>ID</th><th>Type</th><th>Value</th><th>Unit</th><th>Statistic</th><th>STATO</th></tr></thead>
+        <tbody>
+        {% for r in results %}
+        <tr><td>{{ r.result_id }}</td><td>{{ r.type }}</td><td>{{ r.value }}</td><td>{{ r.unit }}</td><td>{{ r.statistic }}</td><td>{{ r.stato_term }}</td></tr>
+        {% endfor %}
+        </tbody>
+    </table>
+</div>
 {% endblock %}

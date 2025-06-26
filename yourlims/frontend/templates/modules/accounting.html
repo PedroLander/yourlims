@@ -1,5 +1,38 @@
 {% extends 'index.html' %}
 {% block content %}
 <h2>Accounting Interface</h2>
-<p>Welcome to the Accounting Interface module.</p>
+<p>Track reagent usage, costs, and inventory for accounting and billing.</p>
+<div class="mb-4">
+    <h4>Accounting Summary</h4>
+    <table class="table table-bordered table-sm">
+        <thead><tr><th>Year</th><th>Budget</th><th>Spent</th><th>Balance</th><th>Last Update</th></tr></thead>
+        <tbody>
+        {% for a in accounting_data %}
+        <tr><td>{{ a.year }}</td><td>{{ a.budget }}</td><td>{{ a.spent }}</td><td>{{ a.balance }}</td><td>{{ a.last_update }}</td></tr>
+        {% endfor %}
+        </tbody>
+    </table>
+</div>
+<div class="mb-4">
+    <h4>Inventory <a href="/tables/inventory/create" class="btn btn-success btn-sm ms-2">Add Inventory</a></h4>
+    <table class="table table-bordered table-sm">
+        <thead><tr><th>ID</th><th>Name</th><th>Type</th><th>Lot</th><th>Qty</th><th>Unit</th><th>Expires</th></tr></thead>
+        <tbody>
+        {% for i in inventory %}
+        <tr><td>{{ i.inventory_id }}</td><td>{{ i.name }}</td><td>{{ i.product_type }}</td><td>{{ i.lot_number }}</td><td>{{ i.quantity }}</td><td>{{ i.unit }}</td><td>{{ i.expiration_date }}</td></tr>
+        {% endfor %}
+        </tbody>
+    </table>
+</div>
+<div class="mb-4">
+    <h4>Chemicals <a href="/tables/chemicals/create" class="btn btn-success btn-sm ms-2">Add Chemical</a></h4>
+    <table class="table table-bordered table-sm">
+        <thead><tr><th>ID</th><th>Name</th><th>ChEBI</th><th>PubChem</th><th>UNII</th><th>Qty</th><th>Unit</th></tr></thead>
+        <tbody>
+        {% for c in chemicals %}
+        <tr><td>{{ c.chemical_id }}</td><td>{{ c.name }}</td><td>{{ c.chebi_id }}</td><td>{{ c.pubchem_id }}</td><td>{{ c.unii }}</td><td>{{ c.quantity }}</td><td>{{ c.unit }}</td></tr>
+        {% endfor %}
+        </tbody>
+    </table>
+</div>
 {% endblock %}

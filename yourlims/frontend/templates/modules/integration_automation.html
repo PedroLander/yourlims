@@ -1,5 +1,16 @@
 {% extends 'index.html' %}
 {% block content %}
 <h2>Integration & Automation Layer</h2>
-<p>Welcome to the Integration & Automation Layer module.</p>
+<p>Manage automation and integration records.</p>
+<div class="mb-4">
+    <h4>Automation <a href="/tables/automation/create" class="btn btn-success btn-sm ms-2">Add Automation</a></h4>
+    <table class="table table-bordered table-sm">
+        <thead><tr><th>ID</th><th>Type</th><th>Driver</th><th>SOP ID</th></tr></thead>
+        <tbody>
+        {% for a in automation %}
+        <tr><td>{{ a.automation_id }}</td><td>{{ a.type }}</td><td>{{ a.driver }}</td><td>{{ a.sop_id }}</td></tr>
+        {% endfor %}
+        </tbody>
+    </table>
+</div>
 {% endblock %}

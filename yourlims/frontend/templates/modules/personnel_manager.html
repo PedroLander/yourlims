@@ -1,5 +1,16 @@
 {% extends 'index.html' %}
 {% block content %}
 <h2>Personnel Manager</h2>
-<p>Welcome to the Personnel Manager module.</p>
+<p>Manage staff, training, and roles.</p>
+<div class="mb-4">
+    <h4>Staff <a href="/tables/staff/create" class="btn btn-success btn-sm ms-2">Add Staff</a></h4>
+    <table class="table table-bordered table-sm">
+        <thead><tr><th>ID</th><th>Name</th><th>Role</th><th>Training</th><th>EDU Term</th></tr></thead>
+        <tbody>
+        {% for s in staff %}
+        <tr><td>{{ s.staff_id }}</td><td>{{ s.name }}</td><td>{{ s.role }}</td><td>{{ s.training }}</td><td>{{ s.edu_term }}</td></tr>
+        {% endfor %}
+        </tbody>
+    </table>
+</div>
 {% endblock %}

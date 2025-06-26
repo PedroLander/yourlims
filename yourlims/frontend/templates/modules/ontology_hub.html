@@ -1,5 +1,27 @@
 {% extends 'index.html' %}
 {% block content %}
 <h2>Ontology/Metadata Hub</h2>
-<p>Welcome to the Ontology/Metadata Hub module.</p>
+<p>Manage metadata, omics, and data interchange records.</p>
+<div class="mb-4">
+    <h4>Data Interchange <a href="/tables/interchange/create" class="btn btn-success btn-sm ms-2">Add Interchange</a></h4>
+    <table class="table table-bordered table-sm">
+        <thead><tr><th>ID</th><th>JSON-LD</th><th>RDF</th><th>RO-Crate</th><th>Dublin Core</th></tr></thead>
+        <tbody>
+        {% for i in interchange %}
+        <tr><td>{{ i.interchange_id }}</td><td>{{ i.jsonld }}</td><td>{{ i.rdf }}</td><td>{{ i.ro_crate }}</td><td>{{ i.dublin_core }}</td></tr>
+        {% endfor %}
+        </tbody>
+    </table>
+</div>
+<div class="mb-4">
+    <h4>Omics Data <a href="/tables/omics_data/create" class="btn btn-success btn-sm ms-2">Add Omics Data</a></h4>
+    <table class="table table-bordered table-sm">
+        <thead><tr><th>ID</th><th>Run</th><th>Type</th><th>MIMARKS</th><th>MIAME</th></tr></thead>
+        <tbody>
+        {% for o in omics_data %}
+        <tr><td>{{ o.omics_id }}</td><td>{{ o.run_id }}</td><td>{{ o.type }}</td><td>{{ o.mimarks }}</td><td>{{ o.miame }}</td></tr>
+        {% endfor %}
+        </tbody>
+    </table>
+</div>
 {% endblock %}

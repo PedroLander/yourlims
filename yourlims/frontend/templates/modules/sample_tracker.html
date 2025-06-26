@@ -1,5 +1,27 @@
 {% extends 'index.html' %}
 {% block content %}
 <h2>Sample Tracker</h2>
-<p>Welcome to the Sample Tracker module.</p>
+<p>Track and manage all samples and biological specimens.</p>
+<div class="mb-4">
+    <h4>Samples <a href="/tables/samples/create" class="btn btn-success btn-sm ms-2">Create New Sample</a></h4>
+    <table class="table table-bordered table-sm">
+        <thead><tr><th>ID</th><th>Name</th><th>Type</th><th>Collected By</th><th>Date</th></tr></thead>
+        <tbody>
+        {% for s in samples %}
+        <tr><td>{{ s.sample_id }}</td><td>{{ s.name }}</td><td>{{ s.sample_type }}</td><td>{{ s.collected_by }}</td><td>{{ s.collected_at }}</td></tr>
+        {% endfor %}
+        </tbody>
+    </table>
+</div>
+<div class="mb-4">
+    <h4>Specimens <a href="/tables/specimens/create" class="btn btn-success btn-sm ms-2">Create New Specimen</a></h4>
+    <table class="table table-bordered table-sm">
+        <thead><tr><th>ID</th><th>Taxon</th><th>DwC Term</th><th>ENVO Term</th><th>Location</th></tr></thead>
+        <tbody>
+        {% for s in specimens %}
+        <tr><td>{{ s.specimen_id }}</td><td>{{ s.taxon }}</td><td>{{ s.dwc_term }}</td><td>{{ s.envo_term }}</td><td>{{ s.field_location }}</td></tr>
+        {% endfor %}
+        </tbody>
+    </table>
+</div>
 {% endblock %}

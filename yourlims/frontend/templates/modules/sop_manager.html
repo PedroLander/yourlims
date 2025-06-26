@@ -1,5 +1,27 @@
 {% extends 'index.html' %}
 {% block content %}
 <h2>SOP & Document Manager</h2>
-<p>Welcome to the SOP & Document Manager module.</p>
+<p>Manage SOPs and audit trails for compliance.</p>
+<div class="mb-4">
+    <h4>SOPs <a href="/tables/sops/create" class="btn btn-success btn-sm ms-2">Add SOP</a></h4>
+    <table class="table table-bordered table-sm">
+        <thead><tr><th>ID</th><th>Title</th><th>Version</th><th>ISO</th><th>Revision</th></tr></thead>
+        <tbody>
+        {% for s in sops %}
+        <tr><td>{{ s.sop_id }}</td><td>{{ s.title }}</td><td>{{ s.version }}</td><td>{{ s.iso_standard }}</td><td>{{ s.revision_date }}</td></tr>
+        {% endfor %}
+        </tbody>
+    </table>
+</div>
+<div class="mb-4">
+    <h4>Audit Trails <a href="/tables/audit_trails/create" class="btn btn-success btn-sm ms-2">Add Audit Event</a></h4>
+    <table class="table table-bordered table-sm">
+        <thead><tr><th>ID</th><th>SOP</th><th>Event</th><th>Timestamp</th></tr></thead>
+        <tbody>
+        {% for a in audit_trails %}
+        <tr><td>{{ a.audit_id }}</td><td>{{ a.sop_id }}</td><td>{{ a.event }}</td><td>{{ a.timestamp }}</td></tr>
+        {% endfor %}
+        </tbody>
+    </table>
+</div>
 {% endblock %}

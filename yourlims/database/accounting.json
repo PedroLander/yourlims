@@ -1,0 +1,13 @@
+[
+  {
+    "name": "accounting",
+    "columns": [
+      {"name": "accounting_id", "type": "INTEGER PRIMARY KEY"},
+      {"name": "year", "type": "INTEGER"},
+      {"name": "budget", "type": "REAL"},
+      {"name": "spent", "type": "REAL"},
+      {"name": "balance", "type": "REAL"},
+      {"name": "last_update", "type": "TEXT"}
+    ]
+  }
+]

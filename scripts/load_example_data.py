@@ -144,17 +144,29 @@ def populate_example_data(conn):
             ('liquid handler', 'OPC-UA', '2'),
             ('incubator', 'Custom', '3')
         ])
-        # Instruments
+        # Instruments (add more, with realistic calibration dates)
         c.executemany("INSERT INTO instruments (name, model, serial_number, calibration_date, animl_id) VALUES (?, ?, ?, ?, ?)", [
-            ('HPLC', 'Agilent 1100', 'HPLC-001', '2025-01-01', 'ANIML:001'),
-            ('GC-MS', 'Shimadzu QP2010', 'GCMS-002', '2025-02-01', 'ANIML:002'),
-            ('Plate Reader', 'BioTek Synergy', 'PLATE-003', '2025-03-01', 'ANIML:003')
+            ('HPLC', 'Agilent 1100', 'HPLC-001', '2023-01-10', 'ANIML:001'),
+            ('GC-MS', 'Shimadzu QP2010', 'GCMS-002', '2023-02-15', 'ANIML:002'),
+            ('Plate Reader', 'BioTek Synergy', 'PLATE-003', '2023-03-20', 'ANIML:003'),
+            ('Balance', 'Mettler Toledo', 'BAL-004', '2024-04-05', 'ANIML:004'),
+            ('pH Meter', 'Hanna HI5221', 'PH-005', '2025-05-10', 'ANIML:005'),
+            ('Spectrophotometer', 'Thermo NanoDrop', 'SPEC-006', '2025-06-15', 'ANIML:006')
         ])
-        # Calibrations
+        # Calibrations (add more, spread over years for nice charts)
         c.executemany("INSERT INTO calibrations (instrument_id, date, adf_id) VALUES (?, ?, ?)", [
-            (1, '2025-01-10', 'ADF:001'),
-            (2, '2025-02-10', 'ADF:002'),
-            (3, '2025-03-10', 'ADF:003')
+            (1, '2023-01-15', 'ADF:001'), (1, '2024-01-15', 'ADF:002'), (1, '2025-01-15', 'ADF:003'),
+            (2, '2023-02-20', 'ADF:004'), (2, '2024-02-20', 'ADF:005'), (2, '2025-02-20', 'ADF:006'),
+            (3, '2023-03-25', 'ADF:007'), (3, '2024-03-25', 'ADF:008'), (3, '2025-03-25', 'ADF:009'),
+            (4, '2024-04-10', 'ADF:010'), (4, '2025-04-10', 'ADF:011'),
+            (5, '2025-05-15', 'ADF:012'),
+            (6, '2025-06-20', 'ADF:013')
+        ])
+        # Accounting (add more, with realistic balances and yearly numbers)
+        c.executemany("INSERT INTO accounting (year, budget, spent, balance, last_update) VALUES (?, ?, ?, ?, ?)", [
+            (2023, 100000, 80000, 20000, '2023-12-31'),
+            (2024, 120000, 95000, 25000, '2024-12-31'),
+            (2025, 130000, 110000, 20000, '2025-06-26')
         ])
         # SOPS
         c.executemany("INSERT INTO sops (title, version, iso_standard, revision_date) VALUES (?, ?, ?, ?)", [
@@ -205,7 +217,7 @@ def populate_example_data(conn):
 if __name__ == '__main__':
     import argparse
     parser = argparse.ArgumentParser(description='Populate a LIMS database with example data')
-    parser.add_argument('db_path', help='Path to the database file to populate (in yourlims/databases)')
+    parser.add_argument('db_path', nargs='?', default='example_lims.db', help='Path to the database file to populate (in yourlims/databases)')
     args = parser.parse_args()
     db_path = args.db_path
     if not os.path.isabs(db_path):

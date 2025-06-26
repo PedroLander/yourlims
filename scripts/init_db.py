@@ -47,6 +47,13 @@ def init_db(db_name='lims.db', schema_files=None, schema_name=None):
                 fks.append(f"FOREIGN KEY({col['name']}) REFERENCES {ref}")
         stmt = f"CREATE TABLE {table['name']} (" + ', '.join(cols + fks) + ")"
         c.execute(stmt)
+        # Auto-populate accounting table with demo data on creation
+        if table['name'] == 'accounting':
+            c.executemany("INSERT INTO accounting (year, budget, spent, balance, last_update) VALUES (?, ?, ?, ?, ?)", [
+                (2023, 100000, 80000, 20000, '2023-12-31'),
+                (2024, 120000, 95000, 25000, '2024-12-31'),
+                (2025, 130000, 110000, 20000, '2025-06-26')
+            ])
     conn.commit()
     conn.close()
     print(f'LIMS database initialized at {db_path} with {len(tables)} tables.')
