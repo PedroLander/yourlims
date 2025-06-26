@@ -1,6 +1,6 @@
 # YourLIMS: Modular, FAIR-Compliant Laboratory Information Management System
 
-![LIMS Screenshot](images/index_screenshot.png)
+![LIMS Screenshot](images/Screenshot_2025-06-26_03-02-17.png)
 
 YourLIMS is a modern, extensible Laboratory Information Management System (LIMS) built in Python with a professional web frontend. It is designed for maximum flexibility, international standards compliance, and seamless integration with laboratory automation and data workflows.
 
