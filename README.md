@@ -2,12 +2,12 @@
 
 ![LIMS Screenshot](images/Screenshot_2025-06-26_03-02-17.png)
 
-YourLIMS is a modern, extensible Laboratory Information Management System (LIMS) built in Python with a professional web frontend. It is designed for maximum flexibility, international standards compliance, and seamless integration with laboratory automation and data workflows.
+YourLIMS is a flexible, extensible Laboratory Information Management System (LIMS) built in Python with a modern web frontend. The project aims to help labs organize their data and processes using international standards, with a focus on integration and customization. While still evolving, YourLIMS is designed to be a practical starting point for FAIR-compliant, automation-ready lab management.
 
 ## Key Features
 
 - **International Standard Schemas:**
-  - All database tables are defined using JSON schemas based on international standards (MIBBI/GSC, ISA-Tab, MIxS, etc.), ensuring FAIR data principles and interoperability.
+  - Database tables are defined using JSON schemas based on international standards (MIBBI/GSC, ISA-Tab, MIxS, etc.), supporting FAIR data principles and interoperability.
 - **Modular Architecture:**
   - Each major LIMS area is a separate, extensible Flask blueprint/module (Experiments, Samples, Inventory, Instruments, SOPs, Personnel, QA/QC, Results, Ontology, Integration, Accounting, etc.).
 - **Dynamic Schema & CRUD:**
@@ -15,11 +15,11 @@ YourLIMS is a modern, extensible Laboratory Information Management System (LIMS)
 - **Customizable & Integrated:**
   - Easily add new tables, modules, or integrations. Sidebar navigation and settings menu allow for database selection, creation, backup, and automation configuration.
 - **Professional UI/UX:**
-  - Modern, responsive interface with dark mode, statistics, charts, and dashboards. Highly customizable with CSS and template overrides.
+  - Responsive interface with dark mode, statistics, charts, and dashboards. Customizable with CSS and template overrides.
 - **Automation & Integration:**
   - Equipment connection configuration, CSV upload, and extensible integration points for lab automation and data transfer.
 - **Example Data:**
-  - Rich, realistic example database (`example_lims.db`) is auto-populated for demos and testing.
+  - A realistic example database (`example_lims.db`) is auto-populated for demos and testing.
 
 ## Quick Start
 
@@ -33,8 +33,10 @@ YourLIMS is a modern, extensible Laboratory Information Management System (LIMS)
    ```
 3. **Run the backend and frontend:**
    ```bash
-   # Start backend API (Flask or your preferred method)
-   # Start frontend Flask app
+   # Start backend API
+   python -m yourlims.api.app
+
+   # In a separate terminal, start frontend Flask app
    python -m yourlims.frontend.app
    ```
 4. **Open your browser:**
@@ -52,6 +54,8 @@ YourLIMS is a modern, extensible Laboratory Information Management System (LIMS)
   - Use the settings menu for database selection, creation, backup, and automation configuration.
 
 ## Future Development
+
+YourLIMS is a work in progress and welcomes contributions and suggestions. Planned improvements include:
 
 - **Security:**
   - Password hashing, advanced role management, secure connection methods, and robust validation of data uploads.
@@ -71,4 +75,4 @@ MIT License. See LICENSE file for details.
 
 ---
 
-For more information, see the code, open an issue, or contact the maintainers.
+YourLIMS is an open project and still growing. If you have ideas, find bugs, or want to help, please see the code, open an issue, or contact the maintainers.
